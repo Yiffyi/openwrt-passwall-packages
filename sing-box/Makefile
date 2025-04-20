@@ -52,6 +52,10 @@ define Package/$(PKG_NAME)/config
   menu "Customizing build tags"
     depends on PACKAGE_sing-box
 
+    config SING_BOX_WITH_LOW_MEMORY
+      bool "Build with low memory tweaks"
+      default y
+
     config SING_BOX_WITH_ACME
       bool "Build with ACME TLS certificate issuer support"
       default n
@@ -106,6 +110,7 @@ define Package/$(PKG_NAME)/config
 endef
 
 PKG_CONFIG_DEPENDS:= \
+  SING_BOX_WITH_LOW_MEMORY \
 	CONFIG_SING_BOX_WITH_ACME \
 	CONFIG_SING_BOX_WITH_CLASH_API \
 	CONFIG_SING_BOX_WITH_DHCP \
@@ -119,6 +124,7 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_SING_BOX_WITH_WIREGUARD
 
 GO_PKG_TAGS:=$(subst $(space),$(comma),$(strip \
+	$(if $(CONFIG_SING_BOX_WITH_LOW_MEMORY),with_low_memory) \
 	$(if $(CONFIG_SING_BOX_WITH_ACME),with_acme) \
 	$(if $(CONFIG_SING_BOX_WITH_CLASH_API),with_clash_api) \
 	$(if $(CONFIG_SING_BOX_WITH_DHCP),with_dhcp) \
