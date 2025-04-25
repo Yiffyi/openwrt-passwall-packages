@@ -23,9 +23,8 @@ include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
 define Package/frp/install
-	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
-	$(INSTALL_DIR) $(1)/usr/bin/
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/$(2) $(1)/usr/bin/
+	# GO_PKG_INSTALL_BIN_PATH - target directory path, default /usr/bin
+	$(call GoPackage/Package/Install/Bin,$(1))
 
 	$(INSTALL_DIR) $(1)/etc/$(2)
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/conf/$(2)_full.ini $(1)/etc/$(2)/
@@ -61,8 +60,5 @@ endef
 $(eval $(call Package/frp/template,frpc,client))
 $(eval $(call Package/frp/template,frps,server))
 
-$(eval $(call GoBinPackage,frpc))
 $(eval $(call BuildPackage,frpc))
-
-$(eval $(call GoBinPackage,frps))
 $(eval $(call BuildPackage,frps))
