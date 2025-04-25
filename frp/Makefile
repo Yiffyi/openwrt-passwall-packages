@@ -27,8 +27,8 @@ define Package/frp/install
 	$(INSTALL_DIR) $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/$(2) $(1)/usr/bin/
 
-  $(INSTALL_DIR) $(1)/etc/$(2)
-  $(INSTALL_DATA) $(PKG_BUILD_DIR)/conf/$(2)_full.ini $(1)/etc/$(2)/
+	$(INSTALL_DIR) $(1)/etc/$(2)
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/conf/$(2)_full.ini $(1)/etc/$(2)/
 
 	$(INSTALL_DIR) $(1)/etc/init.d/
 	$(INSTALL_BIN) ./files/$(2).init $(1)/etc/init.d/$(2)
@@ -60,7 +60,9 @@ endef
 
 $(eval $(call Package/frp/template,frpc,client))
 $(eval $(call Package/frp/template,frps,server))
+
 $(eval $(call GoBinPackage,frpc))
-$(eval $(call GoBinPackage,frps))
 $(eval $(call BuildPackage,frpc))
+
+$(eval $(call GoBinPackage,frps))
 $(eval $(call BuildPackage,frps))
