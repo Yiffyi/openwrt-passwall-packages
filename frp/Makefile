@@ -27,7 +27,7 @@ define Package/frp/install
 	$(call GoPackage/Package/Install/Bin,$(1))
 
 	$(INSTALL_DIR) $(1)/etc/$(2)
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/conf/$(2)_full.ini $(1)/etc/$(2)/
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/conf/$(2)_full_example.toml $(1)/etc/$(2)/
 
 	$(INSTALL_DIR) $(1)/etc/init.d/
 	$(INSTALL_BIN) ./files/$(2).init $(1)/etc/init.d/$(2)
